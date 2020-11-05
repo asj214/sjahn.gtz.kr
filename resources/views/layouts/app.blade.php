@@ -33,11 +33,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @if(Auth::user()->id)
+                        @auth
                         <li class="nav-item">
                             <a href="{{ route('banners.index') }}" class="nav-link">banners</a>
                         </li>
-                        @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
