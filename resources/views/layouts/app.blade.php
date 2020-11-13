@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a href="{{ route('banners.index') }}" class="nav-link">banners</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('posts.index') }}" class="nav-link">posts</a>
+                        </li>
                         @endauth
                     </ul>
 

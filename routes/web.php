@@ -19,5 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resources([
-    'banners' => 'BannerController'
+    'banners' => 'BannerController',
+    'posts' => 'PostController'
 ]);
