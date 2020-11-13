@@ -1,0 +1,21 @@
+@base_url = http://dev-sjahn.gtz.kr
+
+###
+# banners
+GET {{base_url}}/api/banners
+Content-Type: application/json
+
+{
+    "category_id": 2
+}
+
+###
+# user.login
+# 
+POST {{base_url}}/api/user
+Content-Type: application/json
+
+{
+    "email": "asj214@naver.com",
+    "password": "022617aa"
+}
