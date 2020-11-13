@@ -27,7 +27,7 @@
                 </div>
                 <hr />
                 <div class="card-body">
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('posts.comments', ['id' => $post->id]) }}">
                         @csrf
                         <div class="form-group">
                             <label for="body">댓글</label>
@@ -36,7 +36,44 @@
                         <input type="submit" class="btn btn-block btn-light btn-outline-secondary" value="작성" />
                     </form>
                 </div>
-                
+                @if(count($post->comments) > 0)
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        @foreach($post->comments as $comment)
+                        <li class="media my-4">
+                            <a href="#">
+                                <img src="https://via.placeholder.com/64" class="mr-3 rounded-circle" />
+                            </a>
+                            <div class="media-body">
+                                <div>
+                                    <div class="float-left">
+                                        <a href="#"><b>{{ $comment->user->name }}</b></a>
+                                        &nbsp;
+                                        <span class="text-monospace">{{ $comment->created_at->format('Y.m.d') }}</span>
+                                    </div>
+                                    @if($comment->user_id == Auth::id())
+                                    <div class="float-right">
+                                        <form method="POST" action="{{ route('posts.comments_destroy', ['id' => $comment->id]) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="submit" class="btn btn-link" value="삭제" />
+                                        </form>
+                                    </div>
+                                    @endif
+                                </div>
+                                <br />
+                                <p>{!! nl2br($comment->body) !!}</p>
+                                <div class="media-body">
+                                    <div class="float-right">
+                                        <i class="far fa-heart"></i>&nbsp;0
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
             </div>
         </div>
     </div>

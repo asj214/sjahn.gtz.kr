@@ -22,3 +22,6 @@ Route::resources([
     'banners' => 'BannerController',
     'posts' => 'PostController'
 ]);
+
+Route::post('posts/{id}/comments', 'PostController@comments')->name('posts.comments');
+Route::delete('posts/{id}/comments', 'PostController@comments_destroy')->name('posts.comments_destroy');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\Comment;
 use App\Attachment;
 
 
@@ -94,6 +95,12 @@ class PostController extends Controller
     {
         //
         $post = Post::with(['attachments'])->find($id);
+
+        // echo "<pre>";
+        // print_r($post->toArray());
+        // echo "</pre>";
+        // exit;
+
         return view('posts.show', compact('post'));
     }
 
@@ -165,4 +172,36 @@ class PostController extends Controller
 
         return redirect()->route('posts.index');
     }
+
+    public function comments(Request $request, $id)
+    {
+        $request->validate([
+            'body' => 'required'
+        ]);
+
+        $comment = new Comment();
+        $comment->commentable_id = $id;
+        $comment->commentable_type = 'posts';
+        $comment->user_id = Auth::id();
+        $comment->body = $request->body;
+        $comment->save();
+
+        Post::find($id)->increment('comment_count');
+
+        return redirect()->route('posts.show', ['id' => $id]);
+
+    }
+
+    public function comments_destroy(Request $request, $id)
+    {
+
+        $comment = Comment::find($id);
+        $post = Post::find($comment->commentable_id);
+        $post->decrement('comment_count');
+        $comment->delete();
+
+        return redirect()->route('posts.show', ['id' => $post->id]);
+
+    }
+
 }

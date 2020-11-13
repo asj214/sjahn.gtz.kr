@@ -12,7 +12,7 @@ class Post extends Model
 
     protected $table = "posts";
     protected $dates = ['deleted_at'];
-    protected $with = ['user'];
+    protected $with = ['user', 'comments'];
 
     protected $fillable = [
         'category_id', 'user_id', 'title', 'body'
@@ -20,6 +20,10 @@ class Post extends Model
 
     public function attachments(){
         return $this->hasMany(Attachment::class, 'attachment_id')->where('attachment_type', 'posts')->orderBy('id', 'asc');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class, 'commentable_id')->where('commentable_type', 'posts')->orderBy('id', 'desc');
     }
 
     public function user(){

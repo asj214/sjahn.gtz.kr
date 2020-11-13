@@ -20,7 +20,7 @@
                             <h5 class="mt-0 mb-1">{{ $post->title }}</h5>
                         </a>
                         <p>{!! nl2br($post->body) !!}</p>
-                        <p class="mb-0">{{ $post->user->name }}&nbsp;<cite title="Source Title">{{ $post->created_at }}</cite></p>
+                        <p class="mb-0">{{ $post->user->name }}&nbsp;<cite title="Source Title">{{ $post->created_at->format('Y.m.d') }}</cite></p>
                     </div>
                 </li>
                 @endforeach
