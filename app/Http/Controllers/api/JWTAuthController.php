@@ -45,12 +45,12 @@ class JWTAuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'password' => ['required', 'string', 'min:4'],
         ]);
 
         if ($validator->fails()) {
             //
-            return response()->json(['error' => '..']);
+            return response()->json(['error' => 'Something is wrong with Your Request']);
         }
 
         $user = new User;

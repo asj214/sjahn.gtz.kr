@@ -16,7 +16,7 @@ POST {{base_url}}/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "abc123@abc.com",
+    "email": "abc@abc.com",
     "name": "dante",
     "password": "1234"
 }
@@ -29,7 +29,7 @@ POST {{base_url}}/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "abc123@abc.com",
+    "email": "abc@abc.com",
     "password": "1234"
 }
 

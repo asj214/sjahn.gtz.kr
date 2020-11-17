@@ -24,3 +24,5 @@ artisan jwt:secret
 artisan migrate
 ```
 
+### url
+- [swagger](http://laravel.sjahn.gtz.kr/api/documentation)
