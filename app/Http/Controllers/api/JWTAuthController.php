@@ -4,7 +4,9 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 
 // artisan make:controller api/JWTAuthController
@@ -24,27 +26,37 @@ class JWTAuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        User::find(auth()->user()->id)->update([
+            'last_login_at' => date('Y-m-d H:i:s')
+        ]);
+
         return $this->respondWithToken($token);
     }
 
     public function me()
     {
+        // return response()->json(['error' => 'check'], 401);
         return response()->json(auth()->user());
     }
 
     //
     public function register(Request $request) {
 
-        $request->validate([
-            'email' => 'required|unique:users',
-            'name' => 'required',
-            'password' => 'required'
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
+
+        if ($validator->fails()) {
+            //
+            return response()->json(['error' => '..']);
+        }
 
         $user = new User;
         $user->email = $request->email;
         $user->name = $request->name;
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make($request->password);
         $user->save();
         return response([
             'status' => 'success',

@@ -15,12 +15,13 @@ use Illuminate\Http\Request;
 
 Route::group([
     'middleware' => 'api',
+    'prefix' => 'auth'
 ], function ($router) {
-    Route::post('/user/register', 'api\\JWTAuthController@register');
-    Route::post('/user/login', 'api\\JWTAuthController@login');
-    Route::get('/user/logout', 'api\\JWTAuthController@logout');
-    Route::post('/user/refresh', 'api\\JWTAuthController@refresh');
-    Route::get('/user/me', 'api\\JWTAuthController@me');
+    Route::post('register', 'api\\JWTAuthController@register');
+    Route::post('login', 'api\\JWTAuthController@login');
+    Route::get('logout', 'api\\JWTAuthController@logout');
+    Route::post('refresh', 'api\\JWTAuthController@refresh');
+    Route::get('me', 'api\\JWTAuthController@me');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

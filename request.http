@@ -1,4 +1,4 @@
-@base_url = http://dev-sjahn.gtz.kr
+@base_url = http://dev-laravel.sjahn.gtz.kr
 
 
 ###
@@ -11,33 +11,35 @@ Content-Type: application/json
 }
 
 ###
-# user.create
-POST {{base_url}}/api/user/register
+# auth.create
+POST {{base_url}}/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "ahnsb214@gmail.com",
+    "email": "abc123@abc.com",
     "name": "dante",
-    "password": "022617aa"
+    "password": "1234"
 }
 
 
 ###
+# auth.login
 # @name login
-POST {{base_url}}/api/user/login
+POST {{base_url}}/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "asj214@naver.com",
-    "password": "022617aa"
+    "email": "abc123@abc.com",
+    "password": "1234"
 }
-
-# @access_token = {{login.response.body.access_token}}
-
 
 
 ###
-# api/user/me
-GET {{base_url}}/api/user/me
+@access_token = {{login.response.body.access_token}}
+
+
+###
+# auth.me
+GET {{base_url}}/api/auth/me
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kZXYtc2phaG4uZ3R6LmtyXC9hcGlcL3VzZXJcL2xvZ2luIiwiaWF0IjoxNjA1MzA3NDc1LCJleHAiOjE2MDUzMTEwNzUsIm5iZiI6MTYwNTMwNzQ3NSwianRpIjoiMVEzM3hOMzFETzlsanpsViIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.qnKGiyOC4rQpn6veDRu5tMLA32qWfRjL08J24EFc7ic
+Authorization: Bearer {{access_token}}
