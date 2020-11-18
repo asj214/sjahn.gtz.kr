@@ -35,7 +35,6 @@ class JWTAuthController extends Controller
 
     public function me()
     {
-        // return response()->json(['error' => 'check'], 401);
         return response()->json(auth()->user());
     }
 
